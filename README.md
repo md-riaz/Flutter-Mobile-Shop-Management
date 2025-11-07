@@ -109,7 +109,7 @@ This project includes a GitHub Actions workflow for deploying the Flutter web ap
 
 3. **Access your deployed app**
    - After successful deployment, your app will be available at:
-   - `https://<username>.github.io/<repository-name>/`
+   - `https://<your-username>.github.io/<your-repository-name>/`
    - For this repository: `https://md-riaz.github.io/Flutter-Mobile-Shop-Management/`
 
 The workflow will:

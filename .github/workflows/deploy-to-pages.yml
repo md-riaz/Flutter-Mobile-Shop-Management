@@ -26,6 +26,8 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
+          # Pinned to a specific stable version for reproducible builds
+          # Update this version periodically to get latest features and fixes
           flutter-version: '3.24.0'
           channel: 'stable'
 
