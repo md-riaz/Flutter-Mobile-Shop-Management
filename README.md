@@ -89,6 +89,34 @@ Each module follows the GetX pattern:
    flutter run -d linux
    ```
 
+## 🌐 Deployment
+
+### Deploy to GitHub Pages
+
+This project includes a GitHub Actions workflow for deploying the Flutter web app to GitHub Pages.
+
+**Steps to deploy:**
+
+1. **Enable GitHub Pages**
+   - Go to repository Settings → Pages
+   - Under "Build and deployment", select "Source: GitHub Actions"
+
+2. **Run the deployment workflow**
+   - Go to the "Actions" tab in your GitHub repository
+   - Select "Deploy Flutter Web to GitHub Pages" workflow
+   - Click "Run workflow" button
+   - Select the branch and click "Run workflow"
+
+3. **Access your deployed app**
+   - After successful deployment, your app will be available at:
+   - `https://<your-username>.github.io/<your-repository-name>/`
+   - For this repository: `https://md-riaz.github.io/Flutter-Mobile-Shop-Management/`
+
+The workflow will:
+- Build the Flutter web app in release mode
+- Upload the build artifacts
+- Deploy to GitHub Pages
+
 ## 📦 Dependencies
 
 - **get** (^4.6.6) - State management, routing, and dependency injection
