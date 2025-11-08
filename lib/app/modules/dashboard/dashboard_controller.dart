@@ -17,46 +17,54 @@ class DashboardController extends GetxController {
     loadDashboardData();
   }
 
-  void loadDashboardData() async {
-    isLoading.value = true;
-    
-    // Simulate API call delay
-    await Future.delayed(const Duration(seconds: 1));
-    
-    // Mock data
-    totalProducts.value = 156;
-    totalSales.value = 45320.50;
-    lowStockProducts.value = 12;
-    totalCategories.value = 8;
-    
-    // Mock recent sales
-    recentSales.value = List.generate(5, (index) {
-      return Sale(
-        id: 'sale_$index',
-        productId: 'prod_$index',
-        productName: 'Product ${index + 1}',
-        quantity: (index + 1) * 2,
-        unitPrice: 100.0 + (index * 50),
-        totalAmount: (100.0 + (index * 50)) * ((index + 1) * 2),
-        saleDate: DateTime.now().subtract(Duration(days: index)),
-        customerName: 'Customer ${index + 1}',
-      );
-    });
-    
-    // Mock top products
-    topProducts.value = List.generate(4, (index) {
-      return Product(
-        id: 'prod_$index',
-        name: 'Top Product ${index + 1}',
-        description: 'Best selling product',
-        price: 299.99 + (index * 100),
-        stock: 50 - (index * 10),
-        category: 'Electronics',
-        createdAt: DateTime.now(),
-      );
-    });
-    
-    isLoading.value = false;
+  Future<void> loadDashboardData() async {
+    try {
+      isLoading.value = true;
+      
+      // Simulate API call delay
+      await Future.delayed(const Duration(seconds: 1));
+      
+      // Mock data
+      totalProducts.value = 156;
+      totalSales.value = 45320.50;
+      lowStockProducts.value = 12;
+      totalCategories.value = 8;
+      
+      // Mock recent sales
+      recentSales.value = List.generate(5, (index) {
+        return Sale(
+          id: 'sale_$index',
+          productId: 'prod_$index',
+          productName: 'Product ${index + 1}',
+          quantity: (index + 1) * 2,
+          unitPrice: 100.0 + (index * 50),
+          totalAmount: (100.0 + (index * 50)) * ((index + 1) * 2),
+          saleDate: DateTime.now().subtract(Duration(days: index)),
+          customerName: 'Customer ${index + 1}',
+        );
+      });
+      
+      // Mock top products
+      topProducts.value = List.generate(4, (index) {
+        return Product(
+          id: 'prod_$index',
+          name: 'Top Product ${index + 1}',
+          description: 'Best selling product',
+          price: 299.99 + (index * 100),
+          stock: 50 - (index * 10),
+          category: 'Electronics',
+          createdAt: DateTime.now(),
+        );
+      });
+    } catch (e) {
+      // Handle error silently or log to error tracking service
+      // In production, use proper error logging instead of print
+      // ignore: avoid_print
+      print('Error loading dashboard data: $e');
+    } finally {
+      // Always reset loading state
+      isLoading.value = false;
+    }
   }
 
   void refreshData() {

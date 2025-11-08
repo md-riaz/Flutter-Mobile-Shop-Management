@@ -13,26 +13,32 @@ class ProductsController extends GetxController {
     loadProducts();
   }
 
-  void loadProducts() async {
-    isLoading.value = true;
-    
-    await Future.delayed(const Duration(seconds: 1));
-    
-    // Mock products data
-    products.value = List.generate(20, (index) {
-      final categories = ['Electronics', 'Accessories', 'Parts', 'Cases'];
-      return Product(
-        id: 'prod_$index',
-        name: 'Mobile Phone ${index + 1}',
-        description: 'High-quality smartphone with amazing features and specifications',
-        price: 299.99 + (index * 50),
-        stock: 100 - (index * 3),
-        category: categories[index % categories.length],
-        createdAt: DateTime.now().subtract(Duration(days: index)),
-      );
-    });
-    
-    isLoading.value = false;
+  Future<void> loadProducts() async {
+    try {
+      isLoading.value = true;
+      
+      await Future.delayed(const Duration(seconds: 1));
+      
+      // Mock products data
+      products.value = List.generate(20, (index) {
+        final categories = ['Electronics', 'Accessories', 'Parts', 'Cases'];
+        return Product(
+          id: 'prod_$index',
+          name: 'Mobile Phone ${index + 1}',
+          description: 'High-quality smartphone with amazing features and specifications',
+          price: 299.99 + (index * 50),
+          stock: 100 - (index * 3),
+          category: categories[index % categories.length],
+          createdAt: DateTime.now().subtract(Duration(days: index)),
+        );
+      });
+    } catch (e) {
+      // Handle error silently or log to error tracking service
+      // ignore: avoid_print
+      print('Error loading products: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   List<Product> get filteredProducts {

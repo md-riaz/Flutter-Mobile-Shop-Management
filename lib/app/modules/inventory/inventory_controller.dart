@@ -11,23 +11,29 @@ class InventoryController extends GetxController {
     loadInventory();
   }
 
-  void loadInventory() async {
-    isLoading.value = true;
-    await Future.delayed(const Duration(seconds: 1));
-    
-    inventory.value = List.generate(12, (index) {
-      return Product(
-        id: 'prod_$index',
-        name: 'Mobile Phone ${index + 1}',
-        description: 'Product description',
-        price: 299.99 + (index * 50),
-        stock: 100 - (index * 8),
-        category: 'Electronics',
-        createdAt: DateTime.now(),
-      );
-    });
-    
-    isLoading.value = false;
+  Future<void> loadInventory() async {
+    try {
+      isLoading.value = true;
+      await Future.delayed(const Duration(seconds: 1));
+      
+      inventory.value = List.generate(12, (index) {
+        return Product(
+          id: 'prod_$index',
+          name: 'Mobile Phone ${index + 1}',
+          description: 'Product description',
+          price: 299.99 + (index * 50),
+          stock: 100 - (index * 8),
+          category: 'Electronics',
+          createdAt: DateTime.now(),
+        );
+      });
+    } catch (e) {
+      // Handle error silently or log to error tracking service
+      // ignore: avoid_print
+      print('Error loading inventory: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   List<Product> get lowStockProducts {
