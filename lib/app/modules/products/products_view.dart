@@ -7,6 +7,7 @@ import '../../theme/app_theme.dart';
 import '../../routes/app_routes.dart';
 import '../../../widgets/app_drawer.dart';
 import 'products_controller.dart';
+import 'edit_product_view.dart';
 
 class ProductsView extends GetView<ProductsController> {
   const ProductsView({super.key});
@@ -234,7 +235,7 @@ class ProductsView extends GetView<ProductsController> {
                     child: IconButton(
                       icon: const Icon(Icons.edit, size: 20),
                       onPressed: () {
-                        // Edit product
+                        Get.to(() => EditProductView(product: product));
                       },
                     ),
                   ),

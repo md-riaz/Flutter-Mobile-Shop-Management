@@ -39,4 +39,21 @@ class InventoryController extends GetxController {
   List<Product> get lowStockProducts {
     return inventory.where((product) => product.stock < 20).toList();
   }
+
+  void restockProduct(String productId, int quantity) {
+    final index = inventory.indexWhere((product) => product.id == productId);
+    if (index != -1) {
+      final product = inventory[index];
+      final updatedProduct = product.copyWith(
+        stock: product.stock + quantity,
+        updatedAt: DateTime.now(),
+      );
+      inventory[index] = updatedProduct;
+      Get.snackbar(
+        'Success',
+        'Product restocked successfully',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 }

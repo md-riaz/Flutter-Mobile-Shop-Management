@@ -79,4 +79,28 @@ class ProductsController extends GetxController {
       snackPosition: SnackPosition.BOTTOM,
     );
   }
+
+  void updateProductStock(String productId, int quantitySold) {
+    final index = products.indexWhere((product) => product.id == productId);
+    if (index != -1) {
+      final product = products[index];
+      final updatedProduct = product.copyWith(
+        stock: product.stock - quantitySold,
+        updatedAt: DateTime.now(),
+      );
+      products[index] = updatedProduct;
+    }
+  }
+
+  void updateProduct(Product updatedProduct) {
+    final index = products.indexWhere((product) => product.id == updatedProduct.id);
+    if (index != -1) {
+      products[index] = updatedProduct;
+      Get.snackbar(
+        'Success',
+        'Product updated successfully',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 }
