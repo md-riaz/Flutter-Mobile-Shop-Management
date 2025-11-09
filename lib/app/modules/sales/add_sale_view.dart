@@ -14,9 +14,15 @@ class AddSaleView extends GetView<SalesController> {
     final customerNameController = TextEditingController();
     final quantityController = TextEditingController();
     final selectedProduct = Rx<Product?>(null);
+    final quantityText = ''.obs;
 
     // Get products controller to access product list
     final productsController = Get.find<ProductsController>();
+
+    // Listen to quantity changes for real-time updates
+    quantityController.addListener(() {
+      quantityText.value = quantityController.text;
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +80,8 @@ class AddSaleView extends GetView<SalesController> {
                     return const SizedBox.shrink();
                   }
                   final product = selectedProduct.value!;
-                  final quantity = int.tryParse(quantityController.text) ?? 0;
+                  // Use quantityText.value to trigger reactive updates
+                  final quantity = int.tryParse(quantityText.value) ?? 0;
                   final total = product.price * quantity;
                   
                   return Card(
