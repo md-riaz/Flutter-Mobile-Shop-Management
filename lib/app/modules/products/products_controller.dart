@@ -91,4 +91,16 @@ class ProductsController extends GetxController {
       products[index] = updatedProduct;
     }
   }
+
+  void updateProduct(Product updatedProduct) {
+    final index = products.indexWhere((product) => product.id == updatedProduct.id);
+    if (index != -1) {
+      products[index] = updatedProduct;
+      Get.snackbar(
+        'Success',
+        'Product updated successfully',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 }
