@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/responsive.dart';
 import '../../theme/app_theme.dart';
+import '../../routes/app_routes.dart';
 import '../../../widgets/app_drawer.dart';
 import 'categories_controller.dart';
+import 'add_category_view.dart';
 
 class CategoriesView extends GetView<CategoriesController> {
   const CategoriesView({super.key});
@@ -18,7 +20,7 @@ class CategoriesView extends GetView<CategoriesController> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Get.snackbar('Info', 'Add category feature coming soon');
+              Get.to(() => const AddCategoryView());
             },
           ),
           const SizedBox(width: 8),

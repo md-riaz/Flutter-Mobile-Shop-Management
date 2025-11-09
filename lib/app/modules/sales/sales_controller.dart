@@ -41,4 +41,14 @@ class SalesController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  void addSale(Sale sale) {
+    sales.insert(0, sale); // Add to the beginning for chronological order
+    totalRevenue.value += sale.totalAmount;
+    Get.snackbar(
+      'Success',
+      'Sale recorded successfully',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
 }

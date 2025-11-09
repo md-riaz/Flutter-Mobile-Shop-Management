@@ -6,6 +6,9 @@ import '../../utils/responsive.dart';
 import '../../theme/app_theme.dart';
 import '../../../widgets/app_drawer.dart';
 import 'sales_controller.dart';
+import 'add_sale_view.dart';
+import '../products/products_binding.dart';
+import '../products/products_controller.dart';
 
 class SalesView extends GetView<SalesController> {
   const SalesView({super.key});
@@ -19,7 +22,11 @@ class SalesView extends GetView<SalesController> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Get.snackbar('Info', 'Add sale feature coming soon');
+              // Ensure ProductsController is available for AddSaleView
+              if (!Get.isRegistered<ProductsController>()) {
+                ProductsBinding().dependencies();
+              }
+              Get.to(() => const AddSaleView());
             },
           ),
           const SizedBox(width: 8),

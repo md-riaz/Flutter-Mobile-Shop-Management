@@ -54,4 +54,13 @@ class CategoriesController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  void addCategory(Category category) {
+    categories.add(category);
+    Get.snackbar(
+      'Success',
+      'Category added successfully',
+      snackPosition: SnackPosition.BOTTOM,
+    );
+  }
 }

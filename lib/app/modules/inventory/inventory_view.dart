@@ -144,9 +144,7 @@ class InventoryView extends GetView<InventoryController> {
                     IconButton(
                       icon: const Icon(Icons.add),
                       tooltip: 'Restock',
-                      onPressed: () {
-                        Get.snackbar('Info', 'Restock feature coming soon');
-                      },
+                      onPressed: () => _showRestockDialog(context, product.id),
                     ),
                   ),
                 ],
@@ -154,6 +152,56 @@ class InventoryView extends GetView<InventoryController> {
             }).toList(),
           ),
         ),
+      ),
+    );
+  }
+
+  void _showRestockDialog(BuildContext context, String productId) {
+    final quantityController = TextEditingController();
+
+    Get.dialog(
+      AlertDialog(
+        title: const Text('Restock Product'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Enter the quantity to add to stock:'),
+            const SizedBox(height: 16),
+            TextField(
+              controller: quantityController,
+              decoration: const InputDecoration(
+                labelText: 'Quantity',
+                hintText: 'Enter quantity',
+              ),
+              keyboardType: TextInputType.number,
+              autofocus: true,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final quantity = int.tryParse(quantityController.text);
+              if (quantity == null || quantity <= 0) {
+                Get.snackbar(
+                  'Error',
+                  'Please enter a valid quantity',
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: AppTheme.errorColor,
+                  colorText: Colors.white,
+                );
+                return;
+              }
+              controller.restockProduct(productId, quantity);
+              Get.back();
+            },
+            child: const Text('Restock'),
+          ),
+        ],
       ),
     );
   }
