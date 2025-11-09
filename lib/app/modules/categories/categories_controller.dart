@@ -11,41 +11,47 @@ class CategoriesController extends GetxController {
     loadCategories();
   }
 
-  void loadCategories() async {
-    isLoading.value = true;
-    await Future.delayed(const Duration(seconds: 1));
-    
-    categories.value = [
-      Category(
-        id: 'cat_1',
-        name: 'Electronics',
-        description: 'Mobile phones and tablets',
-        productCount: 45,
-        createdAt: DateTime.now(),
-      ),
-      Category(
-        id: 'cat_2',
-        name: 'Accessories',
-        description: 'Phone accessories and gadgets',
-        productCount: 78,
-        createdAt: DateTime.now(),
-      ),
-      Category(
-        id: 'cat_3',
-        name: 'Parts',
-        description: 'Replacement parts',
-        productCount: 23,
-        createdAt: DateTime.now(),
-      ),
-      Category(
-        id: 'cat_4',
-        name: 'Cases',
-        description: 'Phone cases and covers',
-        productCount: 10,
-        createdAt: DateTime.now(),
-      ),
-    ];
-    
-    isLoading.value = false;
+  Future<void> loadCategories() async {
+    try {
+      isLoading.value = true;
+      await Future.delayed(const Duration(seconds: 1));
+      
+      categories.value = [
+        Category(
+          id: 'cat_1',
+          name: 'Electronics',
+          description: 'Mobile phones and tablets',
+          productCount: 45,
+          createdAt: DateTime.now(),
+        ),
+        Category(
+          id: 'cat_2',
+          name: 'Accessories',
+          description: 'Phone accessories and gadgets',
+          productCount: 78,
+          createdAt: DateTime.now(),
+        ),
+        Category(
+          id: 'cat_3',
+          name: 'Parts',
+          description: 'Replacement parts',
+          productCount: 23,
+          createdAt: DateTime.now(),
+        ),
+        Category(
+          id: 'cat_4',
+          name: 'Cases',
+          description: 'Phone cases and covers',
+          productCount: 10,
+          createdAt: DateTime.now(),
+        ),
+      ];
+    } catch (e) {
+      // Handle error silently or log to error tracking service
+      // ignore: avoid_print
+      print('Error loading categories: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 }
